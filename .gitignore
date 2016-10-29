@@ -3,7 +3,3 @@
 *.sqlite
 __pycache__
 migrations
-celerybeat-schedule
-celerybeat-schedule.db
-celerybeat.pid
-default/local_settings.py

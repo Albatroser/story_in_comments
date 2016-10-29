@@ -15,7 +15,7 @@ class Post(models.Model):
 
 
 class Story(models.Model):
-    name = models.CharField(max_field=300)
+    name = models.CharField(max_length=300)
     post = models.ForeignKey(Post)
 
 
