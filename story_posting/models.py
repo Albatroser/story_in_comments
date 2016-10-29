@@ -35,8 +35,12 @@ class Story(models.Model):
 
     def post(self):
         comments = self.comment_set.order_by("order")
+
+        comment_id_to_reply = 0
         for comment in comments:
-            comment.post()
+            # KPACUBO!
+            comment_id_to_reply = comment.post(comment_id_to_reply)
+
         self.is_posted = True
         self.save()
 
@@ -50,12 +54,15 @@ class Comment(models.Model):
     order = models.IntegerField()
     story = models.ForeignKey(Story)
 
-    def post(self):
-        self.vkaccount.api.method("wall.createComment", {
+    def post(self, comment_id_to_reply):
+        comment_id = self.vkaccount.api.method("wall.createComment", {
             "owner_id": -self.story.parent_post.community.vk_domen,
             "post_id": self.story.parent_post.vk_id_real,
             "message": self.text,
+            "reply_to_comment": comment_id_to_reply
         })
+        return comment_id
+
 
     def __str__(self):
         return self.text
