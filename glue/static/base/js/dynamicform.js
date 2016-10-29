@@ -13,6 +13,8 @@ $(function()
             .removeClass('btn-add').addClass('btn-remove')
             .removeClass('btn-success').addClass('btn-danger')
             .html('<span class="glyphicon glyphicon-minus"></span>');
+
+
     }).on('click', '.btn-remove', function(e)
     {
 		$(this).parents('.entry:first').remove();
@@ -21,6 +23,36 @@ $(function()
 		return false;
 	});
 });
+
+
+
+$(function()
+{
+    $(document).on('click', '.btn-add', function(e)
+    {
+        e.preventDefault();
+
+        var controlForm = $('.controls2 form:first'),
+            currentEntry = $(this).parents('.entry2:first'),
+            newEntry = $(currentEntry.clone()).appendTo(controlForm);
+
+        newEntry.find('input').val('');
+        controlForm.find('.entry2:not(:last) .btn-add')
+            .removeClass('btn-add').addClass('btn-remove')
+            .removeClass('btn-success').addClass('btn-danger')
+            .html('<span class="glyphicon glyphicon-minus"></span>');
+
+
+    }).on('click', '.btn-remove', function(e)
+    {
+		$(this).parents('.entry2:first').remove();
+
+		e.preventDefault();
+		return false;
+	});
+});
+
+
 
 $(document).ready(function () {
     //Initialize tooltips
@@ -40,9 +72,26 @@ $(document).ready(function () {
 
         var $active = $('.wizard .nav-tabs li.active');
         $active.next().removeClass('disabled');
+
         nextTab($active);
 
     });
+
+
+    $(".finish-step").click(function (e) {
+
+        var $active = $('.wizard .nav-tabs li.active');
+        $active.next().removeClass('disabled');
+        var textValue = $( "#main_form1" ).serialize() + "&" + $( "#main_form2" ).serialize() + "&" +
+            $( "#main_form3" ).serialize();
+
+        alert(textValue)
+
+        nextTab($active);
+
+    });
+
+
     $(".prev-step").click(function (e) {
 
         var $active = $('.wizard .nav-tabs li.active');
