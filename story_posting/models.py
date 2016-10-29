@@ -24,6 +24,9 @@ class Post(models.Model):
     def post_story(self):
         self.story.post()
 
+    def __str__(self):
+        return self.text
+
 
 class Story(models.Model):
     name = models.CharField(max_length=300)
@@ -36,6 +39,9 @@ class Story(models.Model):
             comment.post()
         self.is_posted = True
         self.save()
+
+    def __str__(self):
+        return self.name
 
 
 class Comment(models.Model):
@@ -50,3 +56,6 @@ class Comment(models.Model):
             "post_id": self.story.parent_post.vk_id_real,
             "message": self.text,
         })
+
+    def __str__(self):
+        return self.text

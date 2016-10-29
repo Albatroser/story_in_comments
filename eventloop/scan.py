@@ -38,8 +38,8 @@ def scan_wall(queue):
         for i in range(0, len(response)):
             try:
                 text = response['items'][i]['text']
-                for post in community.post_set.all()
-                    if text == post:
+                for post in community.post_set.all():
+                    if text == post.text:
                         post_id = response['items'][i]['id']
                         post.is_posted = True
                         post.vk_id_real = post_id

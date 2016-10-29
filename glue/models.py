@@ -11,8 +11,14 @@ class Vkaccount(models.Model):
     def api(self):
         return vk_api.VkApi(token=self.token)
 
+    def __str__(self):
+        return self.name
+
 
 class Community(models.Model):
     vk_domen = models.IntegerField()
     name = models.CharField(max_length=300, default="")
     url = models.CharField(max_length=300, default="")
+
+    def __str__(self):
+        return self.name
