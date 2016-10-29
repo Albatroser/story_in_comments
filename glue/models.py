@@ -6,6 +6,7 @@ class Vkaccount(models.Model):
     name = models.CharField(max_length=300, default="")
     token = models.CharField(max_length=300)
     vk_id = models.IntegerField()
+    pic_url = models.CharField(max_length=300, default="")
 
     @property
     def api(self):

@@ -3,7 +3,7 @@ from glue.models import Community, Vkaccount
 
 
 class Post(models.Model):
-    text = models.CharField(max_length=300)
+    text = models.TextField()
     community = models.ForeignKey(Community)
     is_posted = models.BooleanField(default=False)
     is_proposed = models.BooleanField(default=False)
@@ -45,7 +45,7 @@ class Story(models.Model):
 
 
 class Comment(models.Model):
-    text = models.CharField(max_length=300)
+    text = models.TextField()
     vkaccount = models.ForeignKey(Vkaccount)
     order = models.IntegerField()
     story = models.ForeignKey(Story)
