@@ -1,14 +1,14 @@
 import vk_api
 from time import strftime, localtime, sleep
-from threading import Thread
 from datetime import timedelta
 from queue import Queue
+from glue.models import Community
 import threading
 from celery.decorators import periodic_task
 
-@periodic_task(run_every=timedelta(seconds=2))
+@periodic_task(run_every=timedelta(seconds=7))
 def start_workers():
-    num_fetch_threads = 2
+    num_fetch_threads = 1
     fetch_queue = Queue()
 
     for i in range(num_fetch_threads):
@@ -20,29 +20,34 @@ def start_workers():
         worker.setDaemon(True)
         worker.start()
 
-    fetch_queue.put('hackrussia2016')
-    fetch_queue.put('spb_vape')
-    fetch_queue.put('vape_baraholka_piter')
-    fetch_queue.put('zapvaper')
+    for community in Community.objects.all():
+        fetch_queue.put(community)
+
     fetch_queue.join()
 
 def scan_wall(queue):
     while True:
-        url = queue.get()
+        community = queue.get()
+        url = community.vk_domen
         session = vk_api.VkApi()
         session.authorization()
         api = session.get_api()
-        response = api.wall.get(domain=url, extended=1)
+        response = api.wall.get(owner_id=-url, extended=1)
 
         name = response['groups'][0]['name']
-        for i in range(1, len(response)):
+        for i in range(0, len(response)):
             try:
                 text = response['items'][i]['text']
-                post_id = response['items'][i]['id']
-                print (post_id)
+                if text == community.post.text:
+                    post_id = response['items'][i]['id']
+                    community.is_posted = True
+                    community.vk_id_real = post_id
+                    community.save()
+                    print (post_id)
             except IndexError:
                 pass
             except TypeError:
                 print ('TypeError')
                 return
-        print ('ready')
+        print ('-------------------------------ready---------------------------')
+        queue.task_done()
