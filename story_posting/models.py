@@ -4,18 +4,22 @@ from glue.models import Community, Vkaccount
 
 class Post(models.Model):
     text = models.CharField(max_length=300)
-    community = models.OneToOneField(Community)
+    community = models.ForeignKey(Community)
     is_posted = models.BooleanField(default=False)
     is_proposed = models.BooleanField(default=False)
     vk_id_request = models.IntegerField(null=True, blank=True)
     vk_id_real = models.IntegerField(null=True, blank=True)
     vkaccount = models.ForeignKey(Vkaccount)
 
+    ready_for_posting = models.BooleanField(default=False)
+
     def post(self):
         self.vkaccount.api.method("wall.post", {
             "owner_id": -self.community.vk_domen,
             "message": self.text
         })
+        self.is_proposed = True
+        self.save()
 
     def post_story(self):
         self.story.post()

@@ -3,9 +3,9 @@ BROKER_URL = 'amqp://'
 
 
 CELERYBEAT_SCHEDULE = {
-    'post_stories_if_it_posted': {
-        'task': 'glue.tasks.post_story',
+    'posting': {
+        'task': 'glue.tasks.post_things',
         'schedule': timedelta(seconds=15),
-    }
+    },
 }
 CELERY_ALWAYS_EAGER = False
