@@ -38,12 +38,13 @@ def scan_wall(queue):
         for i in range(0, len(response)):
             try:
                 text = response['items'][i]['text']
-                if text == community.post.text:
-                    post_id = response['items'][i]['id']
-                    community.is_posted = True
-                    community.vk_id_real = post_id
-                    community.save()
-                    print (post_id)
+                for post in community.post_set.all()
+                    if text == post:
+                        post_id = response['items'][i]['id']
+                        post.is_posted = True
+                        post.vk_id_real = post_id
+                        post.save()
+                        print (post_id)
             except IndexError:
                 pass
             except TypeError:
