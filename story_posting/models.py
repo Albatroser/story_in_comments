@@ -4,7 +4,7 @@ from glue.models import Community, Vkaccount
 
 class Post(models.Model):
     text = models.CharField(max_length=300)
-    community = models.ForeignKey(Community)
+    community = models.OneToOneField(Community)
     is_posted = models.BooleanField(default=False)
     is_proposed = models.BooleanField(default=False)
     vk_id_request = models.IntegerField(null=True, blank=True)
