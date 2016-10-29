@@ -6,7 +6,7 @@ from glue.models import Community
 import threading
 from celery.decorators import periodic_task
 
-@periodic_task(run_every=timedelta(seconds=7))
+@periodic_task(run_every=timedelta(seconds=5))
 def start_workers():
     num_fetch_threads = 1
     fetch_queue = Queue()

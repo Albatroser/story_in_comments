@@ -1,0 +1,44 @@
+{% extends "glue/base.html" %}
+
+
+{% block content %}
+    {% for community in communities %}
+        <div class="panel panel-default">
+            <div class="panel-heading">{{ community.name }}</div>
+            <div class="panel-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-2">
+                            {% for post in community.post_set.all %}
+                                <br>
+                                
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">{{ post.text }}</div>
+                                    <div class="panel-body">
+                                    <div class="row">
+                                    <div class="col-md-10 col-md-offset-1">
+                                        {% for comment in post.story.comment_set.all %}
+                                            <br>
+                                            {% if forloop.counter|divisibleby:2 %}
+                                                <div style="text-align: right">
+                                                <img class="img-circle" style="width:35px;height:35px;" src="{{ comment.vkaccount.pic_url }}">{{ comment.vkaccount }}: {{ comment.text }}
+                                                </div>
+                                            {% else %}
+                                                <img class="img-circle" style="width:35px;height:35px;" src="{{ comment.vkaccount.pic_url }}">{{ comment.vkaccount }}: {{ comment.text }}
+                                            {% endif %}
+                                            
+                                        {% endfor %}
+                                    </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            {% endfor %}                       
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    {% endfor %}
+{% endblock %}

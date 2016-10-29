@@ -1,3 +1,4 @@
+import time
 from django.db import models
 from glue.models import Community, Vkaccount
 
@@ -35,11 +36,11 @@ class Story(models.Model):
 
     def post(self):
         comments = self.comment_set.order_by("order")
-
         comment_id_to_reply = 0
         for comment in comments:
             # KPACUBO!
             comment_id_to_reply = comment.post(comment_id_to_reply)
+            time.sleep(2.5)
 
         self.is_posted = True
         self.save()
@@ -55,13 +56,13 @@ class Comment(models.Model):
     story = models.ForeignKey(Story)
 
     def post(self, comment_id_to_reply):
-        comment_id = self.vkaccount.api.method("wall.createComment", {
+        response = self.vkaccount.api.method("wall.createComment", {
             "owner_id": -self.story.parent_post.community.vk_domen,
             "post_id": self.story.parent_post.vk_id_real,
             "message": self.text,
             "reply_to_comment": comment_id_to_reply
         })
-        return comment_id
+        return response["comment_id"]
 
 
     def __str__(self):
