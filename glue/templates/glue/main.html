@@ -16,15 +16,21 @@
                                     <div class="panel-heading">{{ post.text }}</div>
                                     <div class="panel-body">
                                     <div class="row">
-                                    <div class="col-md-10 col-md-offset-1">
+                                    <div class="col-md-6 col-md-offset-5">
                                         {% for comment in post.story.comment_set.all %}
                                             <br>
                                             {% if forloop.counter|divisibleby:2 %}
                                                 <div style="text-align: right">
-                                                <img class="img-circle" style="width:35px;height:35px;" src="{{ comment.vkaccount.pic_url }}">{{ comment.vkaccount }}: {{ comment.text }}
+                                                <strong>{{ comment.vkaccount }} </strong>
+                                                <img class="img-circle" style="width:35px;height:35px;" src="{{ comment.vkaccount.pic_url }}">
+                                                <br>{{ comment.text }}
+                                                
                                                 </div>
                                             {% else %}
-                                                <img class="img-circle" style="width:35px;height:35px;" src="{{ comment.vkaccount.pic_url }}">{{ comment.vkaccount }}: {{ comment.text }}
+                                                
+                                                <img class="img-circle" style="width:35px;height:35px;" src="{{ comment.vkaccount.pic_url }}">
+                                                <strong>{{ comment.vkaccount }} </strong>
+                                                <br> {{ comment.text }}
                                             {% endif %}
                                             
                                         {% endfor %}
