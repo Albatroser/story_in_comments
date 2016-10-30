@@ -56,6 +56,7 @@
                                 <div class="controls">
 
                                     <form role="form" id="main_form1" autocomplete="off">
+                                        {% csrf_token %}
                                         <div class="entry input-group col-xs-3">
                                             <input class="form-control" name="communities[]" type="text" placeholder="Type something" />
                                             <span class="input-group-btn">
@@ -81,9 +82,10 @@
                         <h3>Шаг 2</h3>
 
                             <form role="form" id="main_form2" autocomplete="off">
-                                        <div class="entry input-group col-xs-3">
+                                {% csrf_token %}
+                                        <div class="entry input-group col-xs-7">
 {#                                            <input name="message" type="text" placeholder="Сообщение" />#}
-                                            <textarea name="message" placeholder="Сообщение" class="form-control" rows="3"></textarea>
+                                            <textarea rows="10" cols="95" name="message" placeholder="Сообщение" class="form-control" rows="3"></textarea>
 
                                         </div>
                                     </form>
@@ -101,6 +103,7 @@
                                 <div class="controls2">
 
                                     <form role="form" id="main_form3" autocomplete="off">
+                                        {% csrf_token %}
                                         <div class="entry2 input-group col-xs-3">
                                             <input class="form-control" name="comments[]" type="text" placeholder="Type something" />
                                             <span class="input-group-btn">

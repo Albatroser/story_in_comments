@@ -85,7 +85,10 @@ $(document).ready(function () {
         var textValue = $( "#main_form1" ).serialize() + "&" + $( "#main_form2" ).serialize() + "&" +
             $( "#main_form3" ).serialize();
 
-        alert(textValue)
+        // alert(textValue)
+        $.post("/adding/", textValue + '&csrfmiddlewaretoken=' + document.getElementsByName('csrfmiddlewaretoken')[0].value);
+
+
 
         nextTab($active);
 
