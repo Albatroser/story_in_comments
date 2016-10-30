@@ -44,7 +44,7 @@ class Story(models.Model):
         for comment in comments:
             # KPACUBO!
             comment_id_to_reply = comment.post(comment_id_to_reply)
-            time.sleep(2.5)
+            time.sleep(1.5)
 
         self.is_posted = True
         self.save()
