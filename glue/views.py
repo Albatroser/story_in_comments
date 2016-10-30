@@ -13,4 +13,9 @@ def communities(request):
 @login_required()
 def adding(request):
     template = "glue/adding.html"
+    if request.method == 'POST':
+        communities_ids = request.POST.get("communities")
+        messages = request.POST.get("message")
+        comments_texts = request.POST.get("comments")
+
     return render(request, template, {})
