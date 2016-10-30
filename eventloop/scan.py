@@ -42,7 +42,8 @@ def scan_wall(queue):
         response = api.wall.get(owner_id=-url, extended=1, count=LIMIT)
         posts = list(community.post_set.all())
         name = response['groups'][0]['name']
-        for i in range(0, response["count"] - 1):
+        print(len(response['items']))
+        for i in range(0, len(response['items'])):
             try:
                 text = response['items'][i]['text']
                 for post in posts:
@@ -52,8 +53,6 @@ def scan_wall(queue):
                         post.vk_id_real = post_id
                         post.save()
 
-            except IndexError as e:
-                print(e)
             except TypeError:
                 print ('TypeError')
                 return
