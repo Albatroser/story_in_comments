@@ -86,13 +86,9 @@ $(document).ready(function () {
             $( "#main_form3" ).serialize();
 
         // alert(textValue)
-        $.post("/adding/",
-            textValue + '&csrfmiddlewaretoken=' + document.getElementsByName('csrfmiddlewaretoken')[0].value,
-            function () {
-                window.location.replace("/communities")
-            });
+        $.post("/adding/", textValue + '&csrfmiddlewaretoken=' + document.getElementsByName('csrfmiddlewaretoken')[0].value)
 
-        nextTab($active);
+        window.location.replace("/communities")
 
     });
 
