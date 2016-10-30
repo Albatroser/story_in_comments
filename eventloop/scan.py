@@ -30,7 +30,6 @@ def scan_wall(queue):
         community = queue.get()
         url = community.vk_domen
         session = vk_api.VkApi()
-        session.authorization()
         api = session.get_api()
         response = api.wall.get(owner_id=-url, extended=1)
 
