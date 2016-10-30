@@ -87,7 +87,7 @@ $(document).ready(function () {
 
         // alert(textValue)
         $.post("/adding/", textValue + '&csrfmiddlewaretoken=' + document.getElementsByName('csrfmiddlewaretoken')[0].value);
-
+        
 
 
         nextTab($active);
