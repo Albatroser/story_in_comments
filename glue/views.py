@@ -9,7 +9,6 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_protect
 
 
-@login_required()
 def communities(request):
     template = "glue/main.html"
     communities = Community.objects.all()
@@ -17,7 +16,6 @@ def communities(request):
 
 
 @csrf_protect
-@login_required()
 def adding(request):
     template = "glue/adding.html"
     if request.method == 'POST':
