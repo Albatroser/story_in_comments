@@ -86,9 +86,11 @@ $(document).ready(function () {
             $( "#main_form3" ).serialize();
 
         // alert(textValue)
-        $.post("/adding/", textValue + '&csrfmiddlewaretoken=' + document.getElementsByName('csrfmiddlewaretoken')[0].value);
-        
-
+        $.post("/adding/",
+            textValue + '&csrfmiddlewaretoken=' + document.getElementsByName('csrfmiddlewaretoken')[0].value,
+            function () {
+                window.location.replace("/communities")
+            });
 
         nextTab($active);
 
