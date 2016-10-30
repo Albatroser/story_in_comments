@@ -25,9 +25,10 @@ def adding(request):
         message = request.POST.get("message")
         comments_texts = request.POST.getlist("comments[]")
 
-        communities = [Community.objects.get_or_create(url=url) for url in communities_urls]
-        for community in communities:
-            community.save()
+        for url in communities_urls:
+            community, created = Community.objects.get_or_create(url=url)
+            if not created:
+                community.save()
             post = Post(text=message, community=community)
             post.save()
 

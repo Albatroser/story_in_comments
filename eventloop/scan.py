@@ -6,6 +6,8 @@ from glue.models import Community
 import threading
 from celery.decorators import periodic_task
 
+LIMIT = 5
+
 @periodic_task(run_every=timedelta(seconds=15))
 def start_workers():
     num_fetch_threads = 1
@@ -37,11 +39,10 @@ def scan_wall(queue):
         community = queue.get()
         url = community.vk_domen
        
-        
-        response = api.wall.get(owner_id=-url, extended=1)
+        response = api.wall.get(owner_id=-url, extended=1, count=LIMIT)
         posts = list(community.post_set.all())
         name = response['groups'][0]['name']
-        for i in range(0, response["count"]):
+        for i in range(0, response["count"] - 1):
             try:
                 text = response['items'][i]['text']
                 for post in posts:
@@ -52,7 +53,7 @@ def scan_wall(queue):
                         post.save()
 
             except IndexError as e:
-                print(e.traceback)
+                print(e)
             except TypeError:
                 print ('TypeError')
                 return

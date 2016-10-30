@@ -21,15 +21,16 @@ class Community(models.Model):
     url = models.CharField(max_length=300, default="")
     name = models.CharField(max_length=300, default="")
 
-    def save(self):
+    def save(self, *args, **kwargs):
         domen_name = self.url.split("://")[1].split("/")[1]
+        self.name = domen_name
         if "public" in domen_name:
             domen_name = domen_name.split("public")[1]
         self.vk_domen = vk_api.VkApi().method(
             "groups.getById", {'group_ids': domen_name}
         )[0].get("id")
 
-        super().save()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
