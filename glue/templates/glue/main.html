@@ -3,8 +3,15 @@
 
 {% block content %}
     {% for community in communities %}
+        <div class="container-fluid">
+        <div class="row">
+        <div class="col-md-6 col-md-offset-3">
         <div class="panel panel-default">
-            <div class="panel-heading">{{ community.name }}</div>
+            <div class="panel-heading">
+                {{ community.name }}
+                <a style="margin-left:30px;" href="{{ community.url }}">{{ community.url }}</a>
+
+            </div>
             <div class="panel-body">
                 <div class="container-fluid">
                     <div class="row">
@@ -16,7 +23,7 @@
                                     <div class="panel-heading">{{ post.text }}</div>
                                     <div class="panel-body">
                                     <div class="row">
-                                    <div class="col-md-6 col-md-offset-5">
+                                    <div class="col-md-9 col-md-offset-2">
                                         {% for comment in post.story.comment_set.all %}
                                             <br>
                                             {% if forloop.counter|divisibleby:2 %}
@@ -44,6 +51,9 @@
                 </div>
 
             </div>
+        </div>
+        </div>
+        </div>
         </div>
 
     {% endfor %}
