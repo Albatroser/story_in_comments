@@ -2,3 +2,5 @@
 __pycache__
 celerybeat-schedule
 */migrations/*
+celerybeat-schedule
+db.sqlite3

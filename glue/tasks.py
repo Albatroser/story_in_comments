@@ -9,6 +9,10 @@ def post_things():
             print("post is not ready %s" % post.text)
             continue
 
+        if post.story_posted:
+            print("story to this post was posted")
+            continue
+
         if post.is_posted and post.vk_id_real and not post.story.is_posted:
             print("posting story to community %s" % post.text)
             post.post_story()

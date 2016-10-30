@@ -12,6 +12,7 @@ class Post(models.Model):
     vk_id_real = models.IntegerField(null=True, blank=True)
     vkaccount = models.ForeignKey(Vkaccount)
 
+    story_posted = models.BooleanField(default=False)
     ready_for_posting = models.BooleanField(default=False)
 
     def post(self):
@@ -24,6 +25,7 @@ class Post(models.Model):
 
     def post_story(self):
         self.story.post()
+        self.story_posted = True
 
     def save(self):
         self.vkaccount = Vkaccount.objects.order_by("?")[0]
