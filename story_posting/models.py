@@ -25,12 +25,16 @@ class Post(models.Model):
     def post_story(self):
         self.story.post()
 
+    def save(self):
+        self.vkaccount = Vkaccount.objects.order_by("?")[0]
+        super().save()
+
     def __str__(self):
         return self.text
 
 
 class Story(models.Model):
-    name = models.CharField(max_length=300)
+    name = models.CharField(max_length=300, default="")
     parent_post = models.OneToOneField(Post, related_name='story')
     is_posted = models.BooleanField(default=False)
 
@@ -64,6 +68,13 @@ class Comment(models.Model):
         })
         return response["comment_id"]
 
+    def save(self):
+        if self.order % 2 == 0:
+            self.vkaccount = Vkaccount.objects.all()[0]
+        else:
+            self.vkaccount = Vkaccount.objects.all()[1]
+
+        super().save()
 
     def __str__(self):
         return self.text
