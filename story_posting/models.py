@@ -29,7 +29,7 @@ class Post(models.Model):
         self.story_posted = True
 
     def save(self):
-        self.vkaccount = Vkaccount.objects.order_by("?")[0]
+        self.vkaccount = Vkaccount.objects.all()[0]
         super().save()
 
     def __str__(self):
