@@ -18,7 +18,8 @@ class Post(models.Model):
     def post(self):
         self.vkaccount.api.method("wall.post", {
             "owner_id": -self.community.vk_domen,
-            "message": self.text
+            "message": self.text,
+            "attachments": "photo248870261_456239032",
         })
         self.is_proposed = True
         self.save()
